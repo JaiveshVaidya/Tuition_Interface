@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellence Tuition Center Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #3b82f6;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.875rem;
+}
+
+.tab-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex-grow: 1;
+}
+
+/* Tab Buttons */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 1rem;
+}
+
+.tab-button {
+    background-color: #f3f4f6;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    flex: 1;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: #e5e7eb;
+}
+
+.tab-button.active {
+    background-color: white;
+    border-bottom: 3px solid #3b82f6;
+    font-weight: bold;
+}
+
+/* Tab Content */
+.tab-content {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.button:hover {
+    background-color: #2563eb;
+}
+
+/* Footer */
+footer {
+    background-color: #3b82f6;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Excellence Tuition Center Dashboard</h1>
+    </header>
+
+    <div class="tab-container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'fees')">Fees Management</button>
+            <button class="tab-button" onclick="openTab(event, 'homework')">Homework Tracker</button>
+            <button class="tab-button" onclick="openTab(event, 'attendance')">Student Attendance</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="fees">
+            <h2>Fees Management</h2>
+            <div class="card-value" id="feesValue">$0</div>
+            <p class="card-description">Total fees collected this month</p>
+            <button class="button" onclick="showModal('feesModal')">Manage Fees</button>
+        </div>
+
+        <div class="tab-content" id="homework" style="display:none;">
+            <h2>Homework Tracker</h2>
+            <div class="card-value" id="homeworkValue">0</div>
+            <p class="card-description">Pending assignments</p>
+            <button class="button" onclick="showModal('homeworkModal')">Track Homework</button>
+        </div>
+
+        <div class="tab-content" id="attendance" style="display:none;">
+            <h2>Student Attendance</h2>
+            <div class="card-value" id="attendanceValue">0%</div>
+            <p class="card-description">Average attendance this week</p>
+            <button class="button" onclick="showModal('attendanceModal')">Mark Attendance</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Excellence Tuition Center. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // JavaScript for managing tabs
+function openTab(evt, tabName) {
+    // Hide all tab contents
+    const tabContents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+    }
+
+    // Remove 'active' class from all tab buttons
+    const tabButtons = document.getElementsByClassName("tab-button");
+    for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+    }
+
+    // Show the current tab and add 'active' class to the clicked button
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+// Show the first tab by default
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementsByClassName("tab-button")[0].click();
+});
+  
+    </script>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

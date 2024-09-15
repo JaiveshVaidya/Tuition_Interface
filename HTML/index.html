@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellence Tuition Center Dashboard</title>
+    <link rel="stylesheet" href="/CSS/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Excellence Tuition Center Dashboard</h1>
+    </header>
+    <main>
+        <div class="card-grid">
+            <div class="card">
+                <h2 class="card-title">Fees Management</h2>
+                <div class="card-value" id="feesValue">$0</div>
+                <p class="card-description">Total fees collected this month</p>
+                <button class="button" onclick="showModal('feesModal')">Manage Fees</button>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Homework Tracker</h2>
+                <div class="card-value" id="homeworkValue">0</div>
+                <p class="card-description">Pending assignments</p>
+                <button class="button" onclick="showModal('homeworkModal')">Track Homework</button>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Student Attendance</h2>
+                <div class="card-value" id="attendanceValue">0%</div>
+                <p class="card-description">Average attendance this week</p>
+                <button class="button" onclick="showModal('attendanceModal')">Mark Attendance</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fees Modal -->
+    <div id="feesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feesModal')">&times;</span>
+            <h2>Manage Fees</h2>
+            <input type="number" id="feesInput" placeholder="Enter amount">
+            <button class="button" onclick="updateFees()">Add Fees</button>
+        </div>
+    </div>
+
+    <!-- Homework Modal -->
+    <div id="homeworkModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('homeworkModal')">&times;</span>
+            <h2>Track Homework</h2>
+            <input type="number" id="homeworkInput" placeholder="Enter number of assignments">
+            <button class="button" onclick="updateHomework()">Update Homework</button>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('attendanceModal')">&times;</span>
+            <h2>Mark Attendance</h2>
+            <input type="number" id="attendanceInput" placeholder="Enter attendance percentage">
+            <button class="button" onclick="updateAttendance()">Update Attendance</button>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <footer>
+        <p>
+            &copy; 2023 Excellence Tuition Center. All rights reserved.
+        </p>
+    </footer>
+    <script src="/javascript/script.js"></script>
+</body>
+</html>

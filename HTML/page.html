@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellence Tuition Center Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+        header {
+            background-color: #3b82f6;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.875rem;
+        }
+        main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        .card-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        .button:hover {
+            background-color: #2563eb;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 0.5rem;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #3b82f6;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Excellence Tuition Center Dashboard</h1>
+    </header>
+    <main>
+        <div class="card-grid">
+            <div class="card">
+                <h2 class="card-title">Fees Management</h2>
+                <div class="card-value" id="feesValue">$0</div>
+                <p class="card-description">Total fees collected this month</p>
+                <button class="button" onclick="showModal('feesModal')">Manage Fees</button>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Homework Tracker</h2>
+                <div class="card-value" id="homeworkValue">0</div>
+                <p class="card-description">Pending assignments</p>
+                <button class="button" onclick="showModal('homeworkModal')">Track Homework</button>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Student Attendance</h2>
+                <div class="card-value" id="attendanceValue">0%</div>
+                <p class="card-description">Average attendance this week</p>
+                <button class="button" onclick="showModal('attendanceModal')">Mark Attendance</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fees Modal -->
+    <div id="feesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feesModal')">&times;</span>
+            <h2>Manage Fees</h2>
+            <input type="number" id="feesInput" placeholder="Enter amount">
+            <button class="button" onclick="updateFees()">Add Fees</button>
+        </div>
+    </div>
+
+    <!-- Homework Modal -->
+    <div id="homeworkModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('homeworkModal')">&times;</span>
+            <h2>Track Homework</h2>
+            <input type="number" id="homeworkInput" placeholder="Enter number of assignments">
+            <button class="button" onclick="updateHomework()">Update Homework</button>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('attendanceModal')">&times;</span>
+            <h2>Mark Attendance</h2>
+            <input type="number" id="attendanceInput" placeholder="Enter attendance percentage">
+            <button class="button" onclick="updateAttendance()">Update Attendance</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Excellence Tuition Center. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let totalFees = 0;
+        let pendingHomework = 0;
+        let averageAttendance = 0;
+
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        function updateFees() {
+            const feesInput = document.getElementById('feesInput');
+            const amount = parseFloat(feesInput.value);
+            if (!isNaN(amount)) {
+                totalFees += amount;
+                document.getElementById('feesValue').textContent = `$${totalFees.toFixed(2)}`;
+                feesInput.value = '';
+                closeModal('feesModal');
+            }
+        }
+
+        function updateHomework() {
+            const homeworkInput = document.getElementById('homeworkInput');
+            const assignments = parseInt(homeworkInput.value);
+            if (!isNaN(assignments)) {
+                pendingHomework = assignments;
+                document.getElementById('homeworkValue').textContent = pendingHomework;
+                homeworkInput.value = '';
+                closeModal('homeworkModal');
+            }
+        }
+
+        function updateAttendance() {
+            const attendanceInput = document.getElementById('attendanceInput');
+            const attendance = parseFloat(attendanceInput.value);
+            if (!isNaN(attendance) && attendance >= 0 && attendance <= 100) {
+                averageAttendance = attendance;
+                document.getElementById('attendanceValue').textContent = `${averageAttendance}%`;
+                attendanceInput.value = '';
+                closeModal('attendanceModal');
+            }
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
